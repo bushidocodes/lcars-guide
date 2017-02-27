@@ -1,6 +1,16 @@
 {
   "name": "borg-no-more",
   "version": "1.0.0",
+  "eslintConfig": {
+    "env": {
+      "browser": true,
+      "node": false,
+      "commonjs": true,
+      "es6": true,
+      "mocha": true
+    },
+    "extends": "airbnb"
+  },
   "description": "Borg No More is the ultimate platform for fans of Star Trek Season IV.",
   "main": "index.js",
   "scripts": {
@@ -31,6 +41,11 @@
     "chai": "^3.5.0",
     "chai-enzyme": "^0.6.1",
     "enzyme": "^2.7.1",
+    "eslint": "^3.16.1",
+    "eslint-config-airbnb": "^14.1.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^4.0.0",
+    "eslint-plugin-react": "^6.10.0",
     "mocha": "^3.2.0",
     "react": "^15.4.2",
     "react-addons-test-utils": "^15.4.2",
