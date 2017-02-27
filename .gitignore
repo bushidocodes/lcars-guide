@@ -1,0 +1,10 @@
+# Ignore node_modules
+node_modules/*
+
+# Ignore WebPack bundle.js
+# This may change if I want to deploy to GitHub Pages
+public/bundle.js
+public/bundle.js.map
+
+# Ignore NPM errors on my dev machine
+npm-debug.log
