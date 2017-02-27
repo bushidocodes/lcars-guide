@@ -4,12 +4,15 @@
   "eslintConfig": {
     "env": {
       "browser": true,
-      "node": false,
+      "node": true,
       "commonjs": true,
       "es6": true,
       "mocha": true
     },
-    "extends": "airbnb"
+    "extends": "airbnb",
+    "rules": {
+      "linebreak-style": ["error", "windows"]
+    }
   },
   "description": "Borg No More is the ultimate platform for fans of Star Trek Season IV.",
   "main": "index.js",

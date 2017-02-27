@@ -1,5 +1,3 @@
-'use strict';
-
 const LiveReloadPlugin = require('webpack-livereload-plugin');
 
 // Engage Ward Speed to accelerate rebuilds, but at the cost of sourcemaps
@@ -10,7 +8,7 @@ module.exports = {
   entry: './app/main.jsx',
   output: {
     path: __dirname,
-    filename: './public/bundle.js'
+    filename: './public/bundle.js',
   },
   context: __dirname,
   devtool: WARP_SPEED_ENGAGED ? 'cheap-module-eval-source-map' : 'source-map',
@@ -24,12 +22,12 @@ module.exports = {
       use: [{
         loader: 'babel-loader',
         options: {
-          presets: ['react', 'es2015', 'stage-2']
-        }
-      }]
-    }]
+          presets: ['react', 'es2015', 'stage-2'],
+        },
+      }],
+    }],
   },
   plugins: [
-    new LiveReloadPlugin({ appendScriptTag: true })
-  ]
+    new LiveReloadPlugin({ appendScriptTag: true }),
+  ],
 };
