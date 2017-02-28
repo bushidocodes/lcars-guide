@@ -1,8 +1,8 @@
 import React from 'react';
 
-const Home = () => (
+const Home = ({ children }) => (
   <div>
-    <h1>My Super Web Page</h1>
+    { children }
   </div>
 );
 
