@@ -6,18 +6,26 @@ import { fetchImdbData } from '../actions/imdb';
 class Episodes extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      seasonId: this.props.routeParams.seasonId
+    };
   }
-
   componentDidMount() {
-    this.props.fetchData();
+    this.props.fetchData(this.state.seasonId);
   }
-
+  shouldComponentUpdate(nextProps) {
+    return this.state.seasonId !== this.props.routeParams.seasonId ||
+      this.props.imdb !== nextProps.imdb;
+  }
+  componentWillUpdate() {
+    this.state.seasonId = this.props.routeParams.seasonId;
+    this.props.fetchData(this.props.routeParams.seasonId);
+  }
   render() {
-    let imdb = this.props.imdb.Episodes ? this.props.imdb : { Episodes: [] };
-    console.log('Episode state is: ', this.state);
+    const imdb = this.props.imdb.Episodes ? this.props.imdb : { Episodes: [] };
     return (
       <div>
-        <h1>{imdb.Title}</h1>
+        <h1>{imdb.Title} Season {imdb.Season}</h1>
         <table>
           <thead>
             <tr>
@@ -43,7 +51,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchData: () => dispatch(fetchImdbData())
+  fetchData: seasonId => dispatch(fetchImdbData(seasonId))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Episodes);

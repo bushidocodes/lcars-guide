@@ -1,5 +1,5 @@
 import React from 'react';
-import { Router, Route, IndexRoute, browserHistory } from 'react-router';
+import { Router, Route, IndexRedirect, hashHistory } from 'react-router';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import Home from './components/Home';
@@ -8,9 +8,10 @@ import store from './store';
 
 render(
   <Provider store={store}>
-    <Router history={browserHistory}>
+    <Router history={hashHistory}>
       <Route path="/" component={Home} >
-        <IndexRoute component={Episodes} />
+        <Route path="seasons/:seasonId" component={Episodes} />
+        <IndexRedirect to="seasons/4" />
       </Route>
     </Router>
   </Provider>,

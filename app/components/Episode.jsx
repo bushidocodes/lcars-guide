@@ -8,7 +8,6 @@ export default (props) => {
       <td>{episode.Released}</td>
       <td>{episode.Episode}</td>
       <td>{episode.imdbRating}</td>
-      <td>{episode.imdbID}</td>
     </tr>
   );
 };

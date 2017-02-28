@@ -15,10 +15,11 @@ export const receiveImdbData = data => ({
 });
 
 // Thunks
-export function fetchImdbData() {
+export function fetchImdbData(seasonId) {
   return (dispatch) => {
     dispatch(imdbIsLoading(true));
-    fetch('http://www.omdbapi.com/?i=tt0092455&season=4&ref_=tt_eps_sn_4')
+    const targetUrl = `http://www.omdbapi.com/?i=tt0092455&season=${seasonId}&ref_=tt_eps_sn_${seasonId}`;
+    fetch(targetUrl)
       .then((response) => {
         if (!response.ok) {
           throw Error(response.statusText);
