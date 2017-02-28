@@ -1780,3 +1780,8 @@ a.lcars-button .lcars-button-addition {
   -webkit-border-radius: 20px;
   border-radius: 20px;
 }
+
+.reactable-filter-input {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
