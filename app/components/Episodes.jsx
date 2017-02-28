@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Episode from './Episode';
+import { Table, Thead, Th } from 'reactable';
 import { fetchImdbData } from '../actions/imdb';
 
 class Episodes extends React.Component {
@@ -26,20 +26,13 @@ class Episodes extends React.Component {
     const imdb = this.props.imdb.Episodes ? this.props.imdb : { Episodes: [] };
     return (
       <div>
-        <h1>{imdb.Title} Season {imdb.Season}</h1>
-        <table>
-          <thead>
-            <tr>
-              <th>Title</th>
-              <th>Date Released</th>
-              <th>Episode</th>
-              <th>Rating</th>
-            </tr>
-          </thead>
-          <tbody>
-            {imdb.Episodes.map(episode => <Episode key={episode.imdbID} data={episode} />)}
-          </tbody>
-        </table>
+        <h3>Season {imdb.Season}</h3>
+        <Table className="table" data={imdb.Episodes} sortable filterable={['Title']} style={{ width: '100%', marginLeft: '10px' }} >
+          <Thead>
+            <Th column="Title" width="75%"><h4>Title</h4></Th>
+            <Th column="imdbRating" style={{ width: '25%', textAlign: 'center' }} ><h4>Rating</h4></Th>
+          </Thead>
+        </Table>
       </div>
     );
   }
