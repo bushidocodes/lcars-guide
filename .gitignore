@@ -6,5 +6,6 @@ node_modules/*
 public/bundle.js
 public/bundle.js.map
 
-# Ignore NPM errors on my dev machine
+# Ignore logged errors on my dev machine
 npm-debug.log
+debug.log
