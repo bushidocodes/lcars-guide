@@ -9,13 +9,27 @@ const Home = ({ children }) => (
     <div className="lcars-row">
       <div className="lcars-column u-1-8">
         <ul className="lcars-menu left">
-          <Link to="seasons/1"><li className="lcars-blue-bg tall">One</li></Link>
-          <Link to="seasons/2"><li className="lcars-blue-bg tall">Two</li></Link>
-          <Link to="seasons/3"><li className="lcars-blue-bg tall">Three</li></Link>
-          <Link to="seasons/4"><li className="lcars-blue-bg tall large-gap">Four</li></Link>
-          <Link to="seasons/5"><li className="lcars-tan-bg tall">Five</li></Link>
-          <Link to="seasons/6"><li className="lcars-tan-bg tall">Six</li></Link>
-          <Link to="seasons/7"><li className="lcars-tan-bg tall">Seven</li></Link>
+          <Link to="seasons/1"><li className="lcars-blue-bg tall">
+            <span className="right" style={{fontSize: 24}}>ONE</span>
+            </li></Link>
+          <Link to="seasons/2"><li className="lcars-blue-bg tall">
+            <span className="right" style={{fontSize: 24}}>TWO</span>
+            </li></Link>
+          <Link to="seasons/3"><li className="lcars-blue-bg tall">
+            <span className="right" style={{fontSize: 24}}>THREE</span>
+            </li></Link>
+          <Link to="seasons/4"><li className="lcars-blue-bg tall large-gap">
+            <span className="right" style={{fontSize: 24}}>FOUR</span>
+            </li></Link>
+          <Link to="seasons/5"><li className="lcars-tan-bg tall">
+            <span className="right" style={{fontSize: 24}}>FIVE</span>
+            </li></Link>
+          <Link to="seasons/6"><li className="lcars-tan-bg tall">
+            <span className="right" style={{fontSize: 24}}>SIX</span>
+            </li></Link>
+          <Link to="seasons/7"><li className="lcars-tan-bg tall">
+            <span className="right" style={{fontSize: 24}}>SEVEN</span>
+            </li></Link>
         </ul>
       </div>
       <div className="lcars-column u-6-8">

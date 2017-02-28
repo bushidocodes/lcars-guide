@@ -14,12 +14,13 @@ class Episodes extends React.Component {
     this.props.fetchData(this.state.seasonId);
   }
   shouldComponentUpdate(nextProps) {
-    return this.state.seasonId !== this.props.routeParams.seasonId ||
-      this.props.imdb !== nextProps.imdb;
+    return this.state.seasonId !== this.props.routeParams.seasonId || this.props.imdb !== nextProps.imdb;
   }
   componentWillUpdate() {
-    this.state.seasonId = this.props.routeParams.seasonId;
-    this.props.fetchData(this.props.routeParams.seasonId);
+    if (this.state.seasonId !== this.props.routeParams.seasonId) {
+      this.state.seasonId = this.props.routeParams.seasonId;
+      this.props.fetchData(this.props.routeParams.seasonId);
+    }
   }
   render() {
     const imdb = this.props.imdb.Episodes ? this.props.imdb : { Episodes: [] };
