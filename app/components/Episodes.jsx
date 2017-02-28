@@ -6,11 +6,6 @@ import { fetchImdbData } from '../actions/imdb';
 class Episodes extends React.Component {
   constructor(props) {
     super(props);
-    // this.state = {
-    //   imdb: props.imdb.Episodes ? props.imdb : { Episodes: [] },
-    //   imdbHasErrored: props.imdbHasErrored,
-    //   imdbIsLoading: props.imdbIsLoading
-    // };
   }
 
   componentDidMount() {
