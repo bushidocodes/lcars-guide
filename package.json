@@ -25,7 +25,7 @@
   "scripts": {
     "build": "rimraf ./public/bundle.js && rimraf ./public/bundle.js.map && cross-env NODE_ENV=production webpack --config webpack.config.js",
     "dev": "rimraf ./public/bundle.js && rimraf ./public/bundle.js.map && cross-env NODE_ENV=development node dev-server.js",
-    "test": "mocha --compilers js:babel-register app/test.js app/**/*.test.js app/**/*.test.jsx",
+    "test": "webpack-dev-server --config webpack.tests.config.js",
     "test-watch": "npm run test -- --watch"
   },
   "repository": {
@@ -53,9 +53,10 @@
     "eslint-plugin-react": "^6.10.0",
     "react-addons-test-utils": "^15.4.2",
     "redux-devtools-extension": "^2.13.0",
+    "sinon": "^2.0.0-pre.6",
     "webpack": "^2.2.1",
-    "webpack-livereload-plugin": "^0.10.0",
-    "webpack-dev-server": "^2.4.1"
+    "webpack-dev-server": "^2.4.1",
+    "webpack-livereload-plugin": "^0.10.0"
   },
   "dependencies": {
     "axios": "^0.15.3",
@@ -78,8 +79,6 @@
     "redux-logger": "^2.8.1",
     "redux-thunk": "^2.2.0",
     "rimraf": "^2.6.1",
-    "sinon": "^1.17.7",
-    "sinon-chai": "^2.8.0",
     "style-loader": "^0.13.2"
   }
 }
