@@ -9,7 +9,7 @@ To install LCARS Guide on your computer, you will need [Node.js with NPM](https:
 Once you have Node.js with NPM, clong the repo to a local directory and install the app's dependencies
 
 ```
-git clone https://github.com/spmcbride1201/borg-no-more.git
+git clone https://github.com/spmcbride1201/lcars-guide.git
 npm install
 ```
 
