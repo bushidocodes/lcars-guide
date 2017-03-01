@@ -10,6 +10,7 @@ Once you have Node.js with NPM, clong the repo to a local directory and install 
 
 ```
 git clone https://github.com/spmcbride1201/lcars-guide.git
+cd lcars-guide
 npm install
 ```
 
