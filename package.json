@@ -29,15 +29,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/spmcbride1201/borg-no-more.git"
+    "url": "git+https://github.com/spmcbride1201/lcars-guide.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/spmcbride1201/borg-no-more/issues"
+    "url": "https://github.com/spmcbride1201/lcars-guide/issues"
   },
-  "homepage": "https://github.com/spmcbride1201/borg-no-more#readme",
+  "homepage": "https://github.com/spmcbride1201/lcars-guide#readme",
   "devDependencies": {
     "babel": "^6.23.0",
     "babel-core": "^6.23.1",
