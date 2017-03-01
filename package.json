@@ -1,5 +1,5 @@
 {
-  "name": "borg-no-more",
+  "name": "lcars-guide",
   "version": "1.0.0",
   "eslintConfig": {
     "env": {
@@ -20,7 +20,7 @@
       "react/prop-types": 0
     }
   },
-  "description": "Borg No More is the ultimate platform for fans of Star Trek Season IV.",
+  "description": "LCARS Guide is the ultimate platform for fans of Star Trek TNG.",
   "main": "index.js",
   "scripts": {
     "build": "rimraf ./public/bundle.js && rimraf ./public/bundle.js.map && cross-env NODE_ENV=production webpack --config webpack.config.js",

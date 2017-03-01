@@ -1,10 +1,10 @@
-# borg-no-more
+# LCARS Guide
 
-Borg No More is the ultimate platform for fans of Star Trek TNG to engage with the content they love.
+LCARS Guide is the ultimate platform for fans of Star Trek TNG to engage with the content they love.
 
 ## Installation
 
-To install Transcend on your computer, you will need [Node.js with NPM](https://nodejs.org/en/download/)
+To install LCARS Guide on your computer, you will need [Node.js with NPM](https://nodejs.org/en/download/)
 
 Once you have Node.js with NPM, clong the repo to a local directory and install the app's dependencies
 
