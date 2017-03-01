@@ -25,8 +25,7 @@
   "scripts": {
     "build": "rimraf ./public/bundle.js && rimraf ./public/bundle.js.map && cross-env NODE_ENV=production webpack --config webpack.config.js",
     "dev": "rimraf ./public/bundle.js && rimraf ./public/bundle.js.map && cross-env NODE_ENV=development node dev-server.js",
-    "test": "webpack-dev-server --config webpack.tests.config.js",
-    "test-watch": "npm run test -- --watch"
+    "test": "webpack-dev-server --config webpack.tests.config.js"
   },
   "repository": {
     "type": "git",
