@@ -1,12 +1,35 @@
 # borg-no-more
 
-Borg No More is the ultimate platform for fans of Star Trek Season IV to engage with the content they love.
+Borg No More is the ultimate platform for fans of Star Trek TNG to engage with the content they love.
 
-## Mission
-Using the data returned from this API http://www.omdbapi.com/?i=tt0092455&season=4&ref_=tt_eps_sn_4, please do the following:
-1. Display the list of episode titles and their imdbRating.
-2. Provide a way for a user to sort by title or rating.
-3. Provide a way for a user to choose a title by first letter.
+## Installation
+
+To install Transcend on your computer, you will need [Node.js with NPM](https://nodejs.org/en/download/)
+
+Once you have Node.js with NPM, clong the repo to a local directory and install the app's dependencies
+
+```
+git clone https://github.com/spmcbride1201/borg-no-more.git
+npm install
+```
+
+To start the app in dev mode (hot-module reloading):
+```
+npm run dev
+```
+... and then open http://localhost:8080/public in a browser
+
+To start the app in test mode (hot-module reloading):
+```
+npm run test
+```
+... and then open http://localhost:7777/tests/ in a browser
+
+To build for production (inject CSS into bundle, uglify, perform dependency tree shaking):
+```
+npm run build
+```
+... and then locally open ./public/index.html in a browser
 
 ## Built with love using:
 * NPM to `npm install` all the things and run scripts
