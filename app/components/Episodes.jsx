@@ -29,7 +29,7 @@ class Episodes extends React.Component {
         <h3>Season {imdb.Season}</h3>
         <Table className="table" data={imdb.Episodes} sortable filterable={['Title']} style={{ width: '100%', marginLeft: '10px' }} >
           <Thead>
-            <Th column="Title" width="75%"><h4>Title</h4></Th>
+            <Th column="Title" style={{ width: '75%' }} ><h4>Title</h4></Th>
             <Th column="imdbRating" style={{ width: '25%', textAlign: 'center' }} ><h4>Rating</h4></Th>
           </Thead>
         </Table>
