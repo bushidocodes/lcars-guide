@@ -34,6 +34,19 @@ plugins.push(
   })
 );
 
+// Added Facebook instructions to minify production build of React
+// https://facebook.github.io/react/docs/optimizing-performance.html#use-the-production-build
+if (PRODUCTION) {
+  plugins.push(
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify('production')
+      }
+    })
+  );
+  plugins.push(new webpack.optimize.UglifyJsPlugin());
+}
+
 module.exports = {
   entry,
   context: __dirname,
