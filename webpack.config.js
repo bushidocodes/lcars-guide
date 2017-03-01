@@ -11,8 +11,10 @@ const PRODUCTION = process.env.NODE_ENV === 'production';
 
 // Generate the entry point based on the environment variable
 const entry = PRODUCTION
-  ? ['./app/main.jsx']
+  ? ['babel-polyfill',
+    './app/main.jsx']
   : [
+    'babel-polyfill',
     './app/main.jsx',
     'webpack/hot/dev-server',
     'webpack-dev-server/client?http://localhost:8080'

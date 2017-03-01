@@ -3,5 +3,6 @@
         "react",
         ["es2015", {"modules": false}], // Disabling transpilation to CommonJS to allow Tree Shaking
         "stage-2"
-    ]
+    ],
+    "plugins": ["transform-object-assign"]
 }
