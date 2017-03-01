@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { RECEIVE_IMDB_DATA, IMDB_HAS_ERRORED, IMDB_IS_LOADING } from '../constants';
+import { generateURL } from '../utils';
 
 // Action Creators
 export const imdbHasErrored = bool => ({
@@ -19,7 +20,7 @@ export const receiveImdbData = data => ({
 export function fetchImdbData(seasonId) {
   return (dispatch) => {
     dispatch(imdbIsLoading(true));
-    const targetUrl = `http://www.omdbapi.com/?i=tt0092455&season=${seasonId}&ref_=tt_eps_sn_${seasonId}`;
+    const targetUrl = generateURL(seasonId);
     axios.get(targetUrl)
       .then((response) => {
         if (response.statusText !== 'OK') {
@@ -32,3 +33,4 @@ export function fetchImdbData(seasonId) {
       .catch(() => dispatch(imdbHasErrored(true)));
   };
 }
+
