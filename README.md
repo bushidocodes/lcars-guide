@@ -14,6 +14,11 @@ cd lcars-guide
 npm install
 ```
 
+Before running the app, set your IMDB API key as an environment variable so the application can fetch episode data from OMDb:
+```
+export IMDB_API_KEY=<your_key>
+```
+
 To start the app in dev mode (hot-module reloading):
 ```
 npm run dev
