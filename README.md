@@ -1,6 +1,7 @@
 # LCARS Guide
 
 LCARS Guide is the ultimate platform for fans of Star Trek TNG to engage with the content they love.
+Episode data is retrieved from the [OMDb API](https://www.omdbapi.com/).
 
 ## Installation
 
@@ -14,9 +15,9 @@ cd lcars-guide
 npm install
 ```
 
-Before running the app, set your IMDB API key as an environment variable so the application can fetch episode data from OMDb:
+Before running the app, set your OMDb API key as an environment variable so the application can fetch episode data. Keys are available from [https://www.omdbapi.com/](https://www.omdbapi.com/):
 ```
-export IMDB_API_KEY=<your_key>
+export OMDB_API_KEY=<your_key>
 ```
 
 To start the app in dev mode (hot-module reloading):
