@@ -20,6 +20,11 @@ Before running the app, set your OMDb API key as an environment variable so the 
 export OMDB_API_KEY=<your_key>
 ```
 
+For a one-time run without modifying your shell environment you can prefix the command:
+```
+OMDB_API_KEY=<your_key> npm run dev
+```
+
 To start the app in dev mode (hot-module reloading):
 ```
 npm run dev

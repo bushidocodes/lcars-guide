@@ -34,6 +34,12 @@ plugins.push(
   })
 );
 
+plugins.push(
+  new webpack.DefinePlugin({
+    'process.env.OMDB_API_KEY': JSON.stringify(process.env.OMDB_API_KEY || '')
+  })
+);
+
 // Added Facebook instructions to minify production build of React
 // https://facebook.github.io/react/docs/optimizing-performance.html#use-the-production-build
 if (PRODUCTION) {
