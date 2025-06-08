@@ -4,9 +4,9 @@ LCARS Guide is the ultimate platform for fans of Star Trek TNG to engage with th
 
 ## Installation
 
-To install LCARS Guide on your computer, you will need [Node.js with NPM](https://nodejs.org/en/download/)
+To install LCARS Guide on your computer, you will need [Node.js with NPM](https://nodejs.org/en/download/). This project works best with Node 16 or later.
 
-Once you have Node.js with NPM, clong the repo to a local directory and install the app's dependencies
+Once you have Node.js with NPM, clone the repo to a local directory and install the app's dependencies
 
 ```
 git clone https://github.com/spmcbride1201/lcars-guide.git
