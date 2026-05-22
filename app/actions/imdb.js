@@ -20,16 +20,28 @@ export const receiveImdbData = data => ({
 export function fetchImdbData(seasonId) {
   return (dispatch) => {
     dispatch(imdbIsLoading(true));
-    const targetUrl = generateURL(seasonId);
-    axios.get(targetUrl)
+    axios.get(generateURL())
       .then((response) => {
-        if (response.statusText !== 'OK') {
-          throw Error(response.statusText);
-        }
         dispatch(imdbIsLoading(false));
         return response;
       })
-      .then(res => dispatch(receiveImdbData(res.data)))
+      .then((res) => {
+        const season = parseInt(seasonId, 10);
+        const episodes = res.data
+          .filter(ep => ep.season === season)
+          .map(ep => ({
+            Episode: String(ep.number),
+            Released: ep.airdate,
+            Title: ep.name,
+            imdbRating: ep.rating.average !== null ? String(ep.rating.average) : 'N/A',
+          }));
+        dispatch(receiveImdbData({
+          Season: String(seasonId),
+          Title: 'Star Trek: The Next Generation',
+          totalSeasons: '7',
+          Episodes: episodes,
+        }));
+      })
       .catch(() => dispatch(imdbHasErrored(true)));
   };
 }

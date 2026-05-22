@@ -62,9 +62,8 @@ describe('<Episodes />', () => {
 });
 
 describe('generateURL', () => {
-  it('creates a properly formed URL based on a valid Star Trek TNG season', () => {
-    const expected = `http://www.omdbapi.com/?i=tt0092455&apikey=${process.env.OMDB_API_KEY}&season=1&ref_=tt_eps_sn_1`;
-    generateURL('1').should.equal(expected);
+  it('returns the TVMaze episodes endpoint for Star Trek TNG', () => {
+    generateURL().should.equal('https://api.tvmaze.com/shows/491/episodes');
   });
 });
 
