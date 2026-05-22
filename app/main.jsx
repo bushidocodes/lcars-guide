@@ -6,7 +6,7 @@ import AppContainer from './components/AppContainer';
 import Episodes from './components/Episodes';
 import store from './store';
 
-require('./style/lcars.css');
+import './style/lcars.css';
 
 const root = createRoot(document.getElementById('main'));
 root.render(
