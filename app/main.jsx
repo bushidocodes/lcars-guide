@@ -1,16 +1,16 @@
 import React from 'react';
 import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { createRoot } from 'react-dom/client';
-import { Provider } from 'react-redux';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import AppContainer from './components/AppContainer';
 import Episodes from './components/Episodes';
-import store from './store';
-
 import './style/lcars.css';
+
+const queryClient = new QueryClient();
 
 const root = createRoot(document.getElementById('main'));
 root.render(
-  <Provider store={store}>
+  <QueryClientProvider client={queryClient}>
     <HashRouter>
       <Routes>
         <Route path="/" element={<AppContainer />}>
@@ -19,5 +19,5 @@ root.render(
         </Route>
       </Routes>
     </HashRouter>
-  </Provider>
+  </QueryClientProvider>
 );
