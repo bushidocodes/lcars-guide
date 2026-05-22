@@ -7,19 +7,19 @@ class Episodes extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      seasonId: this.props.routeParams.seasonId
+      seasonId: this.props.match.params.seasonId
     };
   }
   componentDidMount() {
     this.props.fetchData(this.state.seasonId);
   }
   shouldComponentUpdate(nextProps) {
-    return this.state.seasonId !== this.props.routeParams.seasonId || this.props !== nextProps;
+    return this.state.seasonId !== nextProps.match.params.seasonId || this.props !== nextProps;
   }
-  componentWillUpdate() {
-    if (this.state.seasonId !== this.props.routeParams.seasonId) {
-      this.state.seasonId = this.props.routeParams.seasonId;
-      this.props.fetchData(this.props.routeParams.seasonId);
+  componentWillUpdate(nextProps) {
+    if (this.state.seasonId !== nextProps.match.params.seasonId) {
+      this.state.seasonId = nextProps.match.params.seasonId;
+      this.props.fetchData(nextProps.match.params.seasonId);
     }
   }
   render() {
