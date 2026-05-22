@@ -33,7 +33,7 @@ async function fetchSeasonEpisodes(seasonId: string): Promise<Episode[]> {
 
 function EpisodeTable({ episodes }: { episodes: Episode[] }) {
   const [filter, setFilter] = useState('');
-  const [sortKey, setSortKey] = useState<keyof Episode | null>(null);
+  const [sortKey, setSortKey] = useState<keyof Episode | null>('Episode');
   const [sortAsc, setSortAsc] = useState(true);
 
   function handleSort(key: keyof Episode) {
@@ -71,7 +71,10 @@ function EpisodeTable({ episodes }: { episodes: Episode[] }) {
       <table style={{ width: '100%' }}>
         <thead>
           <tr>
-            <th style={{ width: '75%', cursor: 'pointer', whiteSpace: 'nowrap' }} onClick={() => handleSort('Title')}>
+            <th style={{ width: '8%', textAlign: 'center', cursor: 'pointer', whiteSpace: 'nowrap' }} onClick={() => handleSort('Episode')}>
+              <h4># {sortKey === 'Episode' ? (sortAsc ? '▲' : '▼') : ''}</h4>
+            </th>
+            <th style={{ width: '67%', cursor: 'pointer', whiteSpace: 'nowrap' }} onClick={() => handleSort('Title')}>
               <h4>Title {sortKey === 'Title' ? (sortAsc ? '▲' : '▼') : ''}</h4>
             </th>
             <th style={{ width: '25%', textAlign: 'center', cursor: 'pointer', whiteSpace: 'nowrap' }} onClick={() => handleSort('imdbRating')}>
@@ -81,9 +84,10 @@ function EpisodeTable({ episodes }: { episodes: Episode[] }) {
         </thead>
         <tbody>
           {rows.length === 0
-            ? <tr><td colSpan={2} style={{ textAlign: 'center', color: '#fc8' }}>NO MATCHING EPISODES</td></tr>
+            ? <tr><td colSpan={3} style={{ textAlign: 'center', color: '#fc8' }}>NO MATCHING EPISODES</td></tr>
             : rows.map((ep, i) => (
               <tr key={i}>
+                <td style={{ textAlign: 'center' }}>{ep.Episode}</td>
                 <td>{ep.Title}</td>
                 <td style={{ textAlign: 'center' }}>{ep.imdbRating}</td>
               </tr>
