@@ -19,7 +19,7 @@ const router = createHashRouter([
   },
 ]);
 
-const root = createRoot(document.getElementById('main'));
+const root = createRoot(document.getElementById('main')!);
 root.render(
   <QueryClientProvider client={queryClient}>
     <RouterProvider router={router} />

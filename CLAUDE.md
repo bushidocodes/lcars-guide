@@ -14,6 +14,7 @@ npm run dev         # Vite dev server with HMR at http://localhost:5173
 npm run build       # production build into dist/
 npm run preview     # preview production build locally
 npm run test        # run Vitest test suite (terminal, not browser)
+npm run typecheck   # run tsc --noEmit type check
 ```
 
 Lint is via ESLint (airbnb config). Run with:
@@ -43,7 +44,7 @@ npx eslint app/
 
 **Component structure**: `<AppContainer>` provides the LCARS chrome (top row, bottom row, left column decorative panels from `app/components/LCARS/`). Page content renders via `<Outlet />` inside the center column. `<Episodes>` contains an inline `<EpisodeTable>` component that handles title filtering and column sorting with React state.
 
-**Build**: Vite 6 + `@vitejs/plugin-react-swc` (SWC for JSX transform, no Babel). CSS is imported directly in `app/main.jsx`.
+**Build**: Vite 6 + `@vitejs/plugin-react-swc` (SWC for JSX/TSX transform). CSS is imported directly in `app/main.tsx`. TypeScript is checked separately with `npm run typecheck` (`tsc --noEmit`); SWC strips types at build time without checking.
 
 **Tests**: Vitest + React Testing Library. Test files live in `tests/`. Run with `npm run test` (outputs to terminal).
 
