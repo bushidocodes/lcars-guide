@@ -41,7 +41,7 @@ npx eslint app/
 
 **Data flow**: `<Episodes>` uses `useParams`, `useSelector`, `useDispatch` hooks. On mount (and when `seasonId` changes), it dispatches `fetchImdbData(seasonId)` (from `app/actions/imdb.js`), which fetches all TNG episodes from TVMaze, filters to the requested season, transforms the fields into the Redux state shape, and dispatches `RECEIVE_IMDB_DATA`.
 
-**Component structure**: `<AppContainer>` provides the LCARS chrome (top row, bottom row, left column decorative panels from `app/components/LCARS/`). Page content renders via `<Outlet />` inside the center column. `<Episodes>` uses the `reactable` library to render the episode table.
+**Component structure**: `<AppContainer>` provides the LCARS chrome (top row, bottom row, left column decorative panels from `app/components/LCARS/`). Page content renders via `<Outlet />` inside the center column. `<Episodes>` contains an inline `<EpisodeTable>` component that handles title filtering and column sorting with React state.
 
 **Build**: Vite 6 + `@vitejs/plugin-react-swc` (SWC for JSX transform, no Babel). CSS is imported directly in `app/main.jsx`.
 
