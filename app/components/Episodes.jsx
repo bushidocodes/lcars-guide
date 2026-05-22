@@ -14,12 +14,12 @@ class Episodes extends React.Component {
     this.props.fetchData(this.state.seasonId);
   }
   shouldComponentUpdate(nextProps) {
-    return this.state.seasonId !== this.props.match.params.seasonId || this.props !== nextProps;
+    return this.state.seasonId !== nextProps.match.params.seasonId || this.props !== nextProps;
   }
-  componentWillUpdate() {
-    if (this.state.seasonId !== this.props.match.params.seasonId) {
-      this.state.seasonId = this.props.match.params.seasonId;
-      this.props.fetchData(this.props.match.params.seasonId);
+  componentWillUpdate(nextProps) {
+    if (this.state.seasonId !== nextProps.match.params.seasonId) {
+      this.state.seasonId = nextProps.match.params.seasonId;
+      this.props.fetchData(nextProps.match.params.seasonId);
     }
   }
   render() {

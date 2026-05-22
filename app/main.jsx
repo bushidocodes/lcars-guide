@@ -13,7 +13,7 @@ render(
     <HashRouter>
       <AppContainer>
         <Switch>
-          <Route exact path="/" render={() => <Redirect to="/seasons/4" />} />
+          <Route exact path="/" render={() => <Redirect to="/seasons/4" replace />} />
           <Route path="/seasons/:seasonId" component={Episodes} />
         </Switch>
       </AppContainer>
