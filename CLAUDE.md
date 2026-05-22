@@ -25,9 +25,9 @@ npx eslint app/
 
 **Entry point**: `index.html` at project root → `app/main.jsx` bootstraps the React app — wires up Redux `<Provider>`, React Router `<HashRouter>`, and mounts to `#main` via `createRoot`. The default route redirects to `/seasons/4`.
 
-**Routing**: React Router v6 with a layout route pattern:
-- `<AppContainer>` is the layout route; it renders `<Outlet />` for child content
-- `/` → redirects to `/seasons/4`
+**Routing**: React Router v7 using `createHashRouter` (data-router API). Route config in `app/main.jsx`:
+- `AppContainer` is the layout route; it renders `<Outlet />` for child content
+- `/` index route → `loader` redirects to `/seasons/4`
 - `/seasons/:seasonId` → `<Episodes>` component
 
 **Redux store** (`app/store.js`): configured with `redux-thunk` (async actions) and `redux-logger`. State shape:
