@@ -60,7 +60,7 @@ function EpisodeTable({ episodes }: { episodes: Episode[] }) {
   }, [episodes, filter, sortKey, sortAsc]);
 
   return (
-    <div>
+    <div style={{ paddingLeft: '10px' }}>
       <input
         type="text"
         value={filter}
@@ -68,13 +68,13 @@ function EpisodeTable({ episodes }: { episodes: Episode[] }) {
         placeholder="Filter by title..."
         style={{ marginBottom: '8px' }}
       />
-      <table style={{ width: '100%', marginLeft: '10px' }}>
+      <table style={{ width: '100%' }}>
         <thead>
           <tr>
-            <th style={{ width: '75%', cursor: 'pointer' }} onClick={() => handleSort('Title')}>
+            <th style={{ width: '75%', cursor: 'pointer', whiteSpace: 'nowrap' }} onClick={() => handleSort('Title')}>
               <h4>Title {sortKey === 'Title' ? (sortAsc ? '▲' : '▼') : ''}</h4>
             </th>
-            <th style={{ width: '25%', textAlign: 'center', cursor: 'pointer' }} onClick={() => handleSort('imdbRating')}>
+            <th style={{ width: '25%', textAlign: 'center', cursor: 'pointer', whiteSpace: 'nowrap' }} onClick={() => handleSort('imdbRating')}>
               <h4>Rating {sortKey === 'imdbRating' ? (sortAsc ? '▲' : '▼') : ''}</h4>
             </th>
           </tr>
