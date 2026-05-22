@@ -3,8 +3,23 @@ import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
-async function fetchSeasonEpisodes(seasonId) {
-  const { data } = await axios.get('https://api.tvmaze.com/shows/491/episodes');
+interface TVMazeEpisode {
+  season: number;
+  number: number;
+  airdate: string;
+  name: string;
+  rating: { average: number | null };
+}
+
+interface Episode {
+  Episode: string;
+  Released: string;
+  Title: string;
+  imdbRating: string;
+}
+
+async function fetchSeasonEpisodes(seasonId: string): Promise<Episode[]> {
+  const { data } = await axios.get<TVMazeEpisode[]>('https://api.tvmaze.com/shows/491/episodes');
   const season = parseInt(seasonId, 10);
   return data
     .filter(ep => ep.season === season)
@@ -16,12 +31,12 @@ async function fetchSeasonEpisodes(seasonId) {
     }));
 }
 
-function EpisodeTable({ episodes }) {
+function EpisodeTable({ episodes }: { episodes: Episode[] }) {
   const [filter, setFilter] = useState('');
-  const [sortKey, setSortKey] = useState('');
+  const [sortKey, setSortKey] = useState<keyof Episode | null>(null);
   const [sortAsc, setSortAsc] = useState(true);
 
-  function handleSort(key) {
+  function handleSort(key: keyof Episode) {
     if (sortKey === key) {
       setSortAsc(!sortAsc);
     } else {
@@ -34,9 +49,10 @@ function EpisodeTable({ episodes }) {
     let result = filter
       ? episodes.filter(ep => ep.Title.toLowerCase().includes(filter.toLowerCase()))
       : episodes;
-    if (sortKey) {
+    if (sortKey !== null) {
+      const key = sortKey;
       result = [...result].sort((a, b) => {
-        const cmp = String(a[sortKey]).localeCompare(String(b[sortKey]), undefined, { numeric: true });
+        const cmp = String(a[key]).localeCompare(String(b[key]), undefined, { numeric: true });
         return sortAsc ? cmp : -cmp;
       });
     }
@@ -76,10 +92,10 @@ function EpisodeTable({ episodes }) {
 }
 
 function Episodes() {
-  const { seasonId } = useParams();
+  const { seasonId } = useParams<{ seasonId: string }>();
   const { data: episodes = [], isError } = useQuery({
     queryKey: ['episodes', seasonId],
-    queryFn: () => fetchSeasonEpisodes(seasonId),
+    queryFn: () => fetchSeasonEpisodes(seasonId!),
   });
 
   if (isError) {
