@@ -65,26 +65,30 @@ function EpisodeTable({ episodes }: { episodes: Episode[] }) {
         type="text"
         value={filter}
         onChange={e => setFilter(e.target.value)}
+        placeholder="Filter by title..."
         style={{ marginBottom: '8px' }}
       />
       <table style={{ width: '100%', marginLeft: '10px' }}>
         <thead>
           <tr>
             <th style={{ width: '75%', cursor: 'pointer' }} onClick={() => handleSort('Title')}>
-              <h4>Title</h4>
+              <h4>Title {sortKey === 'Title' ? (sortAsc ? '▲' : '▼') : ''}</h4>
             </th>
             <th style={{ width: '25%', textAlign: 'center', cursor: 'pointer' }} onClick={() => handleSort('imdbRating')}>
-              <h4>Rating</h4>
+              <h4>Rating {sortKey === 'imdbRating' ? (sortAsc ? '▲' : '▼') : ''}</h4>
             </th>
           </tr>
         </thead>
         <tbody>
-          {rows.map((ep, i) => (
-            <tr key={i}>
-              <td>{ep.Title}</td>
-              <td style={{ textAlign: 'center' }}>{ep.imdbRating}</td>
-            </tr>
-          ))}
+          {rows.length === 0
+            ? <tr><td colSpan={2} style={{ textAlign: 'center', color: '#fc8' }}>NO MATCHING EPISODES</td></tr>
+            : rows.map((ep, i) => (
+              <tr key={i}>
+                <td>{ep.Title}</td>
+                <td style={{ textAlign: 'center' }}>{ep.imdbRating}</td>
+              </tr>
+            ))
+          }
         </tbody>
       </table>
     </div>
@@ -93,7 +97,7 @@ function EpisodeTable({ episodes }: { episodes: Episode[] }) {
 
 function Episodes() {
   const { seasonId } = useParams<{ seasonId: string }>();
-  const { data: episodes = [], isError } = useQuery({
+  const { data: episodes = [], isError, isLoading } = useQuery({
     queryKey: ['episodes', seasonId],
     queryFn: () => fetchSeasonEpisodes(seasonId!),
   });
@@ -110,7 +114,9 @@ function Episodes() {
   return (
     <div>
       <h3>Season {seasonId}</h3>
-      <EpisodeTable episodes={episodes} />
+      {isLoading
+        ? <p style={{ color: '#fc8', marginLeft: '10px' }}>ACCESSING RECORDS...</p>
+        : <EpisodeTable episodes={episodes} />}
     </div>
   );
 }

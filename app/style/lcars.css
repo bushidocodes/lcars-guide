@@ -254,6 +254,12 @@ ul.lcars-menu li a {
   text-decoration: none;
   color: inherit;
 }
+.lcars-menu li a.active,
+ol.lcars-menu li a.active,
+ul.lcars-menu li a.active {
+  color: #000;
+  font-weight: bold;
+}
 .lcars-divider {
   padding-top: 25px;
   border-right: 5px solid #000;
