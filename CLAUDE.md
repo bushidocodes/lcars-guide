@@ -4,18 +4,17 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-LCARS Guide is a Star Trek TNG episode browser with a Star Trek LCARS-styled UI. Episode data is fetched from the [OMDb API](https://www.omdbapi.com/) (IMDb title `tt0092455`).
+LCARS Guide is a Star Trek TNG episode browser with a Star Trek LCARS-styled UI. Episode data is fetched from the [TVMaze API](https://api.tvmaze.com/) (show ID 491, no API key required).
 
 ## Commands
 
 ```bash
 npm install         # install dependencies
-npm run dev         # dev server with HMR at http://localhost:8080/public
-npm run build       # production build into public/bundle.js
-npm run test        # serves browser-based test suite at http://localhost:7777/tests/
+npm run dev         # Vite dev server with HMR at http://localhost:5173
+npm run build       # production build into dist/
+npm run preview     # preview production build locally
+npm run test        # run Vitest test suite (terminal, not browser)
 ```
-
-Tests do **not** run in the terminal — `npm run test` starts a webpack-dev-server and the Mocha suite runs inside the browser at `http://localhost:7777/tests/`.
 
 Lint is via ESLint (airbnb config). Run with:
 ```bash
@@ -24,9 +23,10 @@ npx eslint app/
 
 ## Architecture
 
-**Entry point**: `app/main.jsx` bootstraps the React app — wires up Redux `<Provider>`, React-Router with `hashHistory`, and mounts to `#main`. The default route redirects to `/seasons/4`.
+**Entry point**: `index.html` at project root → `app/main.jsx` bootstraps the React app — wires up Redux `<Provider>`, React Router `<HashRouter>`, and mounts to `#main` via `createRoot`. The default route redirects to `/seasons/4`.
 
-**Routing**: React-Router 3 with two routes:
+**Routing**: React Router v6 with a layout route pattern:
+- `<AppContainer>` is the layout route; it renders `<Outlet />` for child content
 - `/` → redirects to `/seasons/4`
 - `/seasons/:seasonId` → `<Episodes>` component
 
@@ -35,15 +35,17 @@ npx eslint app/
 {
   imdbHasErrored: bool,
   imdbIsLoading: bool,
-  imdb: {}  // raw OMDb season response
+  imdb: {}  // season data in OMDb-compatible shape
 }
 ```
 
-**Data flow**: `<Episodes>` dispatches `fetchImdbData(seasonId)` (from `app/actions/imdb.js`) on mount, which uses axios to fetch all TNG episodes from the TVMaze API (`https://api.tvmaze.com/shows/491/episodes`), filters to the requested season, transforms the TVMaze fields into the Redux state shape, and dispatches `RECEIVE_IMDB_DATA`. No API key is required.
+**Data flow**: `<Episodes>` uses `useParams`, `useSelector`, `useDispatch` hooks. On mount (and when `seasonId` changes), it dispatches `fetchImdbData(seasonId)` (from `app/actions/imdb.js`), which fetches all TNG episodes from TVMaze, filters to the requested season, transforms the fields into the Redux state shape, and dispatches `RECEIVE_IMDB_DATA`.
 
-**Component structure**: `<AppContainer>` provides the LCARS chrome (top row, bottom row, left column decorative panels from `app/components/LCARS/`). Page content renders as `{children}` inside the center column. `<Episodes>` uses the `reactable` library to render the episode table.
+**Component structure**: `<AppContainer>` provides the LCARS chrome (top row, bottom row, left column decorative panels from `app/components/LCARS/`). Page content renders via `<Outlet />` inside the center column. `<Episodes>` uses the `reactable` library to render the episode table.
 
-**Build**: Webpack 2 + Babel 6 (ES2015 + React + stage-2). CSS is loaded via webpack's `css-loader`/`style-loader` in dev and injected into the bundle in production.
+**Build**: Vite 6 + `@vitejs/plugin-react-swc` (SWC for JSX transform, no Babel). CSS is imported directly in `app/main.jsx`.
+
+**Tests**: Vitest + React Testing Library. Test files live in `tests/`. Run with `npm run test` (outputs to terminal).
 
 ## ESLint Config
 
