@@ -1,61 +1,40 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { Table, Thead, Th } from 'reactable';
 import { fetchImdbData } from '../actions/imdb';
 
-class Episodes extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      seasonId: this.props.match.params.seasonId
-    };
-  }
-  componentDidMount() {
-    this.props.fetchData(this.state.seasonId);
-  }
-  shouldComponentUpdate(nextProps) {
-    return this.state.seasonId !== nextProps.match.params.seasonId || this.props !== nextProps;
-  }
-  componentWillUpdate(nextProps) {
-    if (this.state.seasonId !== nextProps.match.params.seasonId) {
-      this.state.seasonId = nextProps.match.params.seasonId;
-      this.props.fetchData(nextProps.match.params.seasonId);
-    }
-  }
-  render() {
-    const imdb = this.props.imdb.Episodes ? this.props.imdb : { Episodes: [] };
+function Episodes() {
+  const { seasonId } = useParams();
+  const dispatch = useDispatch();
+  const imdb = useSelector(state => state.imdb);
+  const hasErrored = useSelector(state => state.imdbHasErrored);
+
+  useEffect(() => {
+    dispatch(fetchImdbData(seasonId));
+  }, [seasonId]);
+
+  if (hasErrored) {
     return (
-      <div >
-        {
-          this.props.hasErrored ?
-            <div>
-              <h1 style={{ textAlign: 'center', color: 'red' }}>RED ALERT</h1>
-              <h4 style={{ textAlign: 'center', color: 'red' }}>ERROR DETECTED</h4>
-            </div>
-            :
-            <div>
-              <h3>Season {imdb.Season}</h3>
-              <Table className="table" data={imdb.Episodes} sortable filterable={['Title']} style={{ width: '100%', marginLeft: '10px' }} >
-                <Thead>
-                  <Th column="Title" style={{ width: '75%' }} ><h4>Title</h4></Th>
-                  <Th column="imdbRating" style={{ width: '25%', textAlign: 'center' }} ><h4>Rating</h4></Th>
-                </Thead>
-              </Table>
-            </div >
-        }
-      </div >
+      <div>
+        <h1 style={{ textAlign: 'center', color: 'red' }}>RED ALERT</h1>
+        <h4 style={{ textAlign: 'center', color: 'red' }}>ERROR DETECTED</h4>
+      </div>
     );
   }
+
+  const data = imdb.Episodes ? imdb : { Episodes: [] };
+  return (
+    <div>
+      <h3>Season {data.Season}</h3>
+      <Table className="table" data={data.Episodes} sortable filterable={['Title']} style={{ width: '100%', marginLeft: '10px' }}>
+        <Thead>
+          <Th column="Title" style={{ width: '75%' }}><h4>Title</h4></Th>
+          <Th column="imdbRating" style={{ width: '25%', textAlign: 'center' }}><h4>Rating</h4></Th>
+        </Thead>
+      </Table>
+    </div>
+  );
 }
 
-const mapStateToProps = state => ({
-  imdb: state.imdb,
-  hasErrored: state.imdbHasErrored,
-  isLoading: state.imdbIsLoading
-});
-
-const mapDispatchToProps = dispatch => ({
-  fetchData: seasonId => dispatch(fetchImdbData(seasonId))
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Episodes);
+export default Episodes;
