@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { useState, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { Table, Thead, Th } from 'reactable';
 import axios from 'axios';
 
 async function fetchSeasonEpisodes(seasonId) {
@@ -15,6 +14,65 @@ async function fetchSeasonEpisodes(seasonId) {
       Title: ep.name,
       imdbRating: ep.rating.average !== null ? String(ep.rating.average) : 'N/A',
     }));
+}
+
+function EpisodeTable({ episodes }) {
+  const [filter, setFilter] = useState('');
+  const [sortKey, setSortKey] = useState('');
+  const [sortAsc, setSortAsc] = useState(true);
+
+  function handleSort(key) {
+    if (sortKey === key) {
+      setSortAsc(!sortAsc);
+    } else {
+      setSortKey(key);
+      setSortAsc(true);
+    }
+  }
+
+  const rows = useMemo(() => {
+    let result = filter
+      ? episodes.filter(ep => ep.Title.toLowerCase().includes(filter.toLowerCase()))
+      : episodes;
+    if (sortKey) {
+      result = [...result].sort((a, b) => {
+        const cmp = String(a[sortKey]).localeCompare(String(b[sortKey]), undefined, { numeric: true });
+        return sortAsc ? cmp : -cmp;
+      });
+    }
+    return result;
+  }, [episodes, filter, sortKey, sortAsc]);
+
+  return (
+    <div>
+      <input
+        type="text"
+        value={filter}
+        onChange={e => setFilter(e.target.value)}
+        style={{ marginBottom: '8px' }}
+      />
+      <table style={{ width: '100%', marginLeft: '10px' }}>
+        <thead>
+          <tr>
+            <th style={{ width: '75%', cursor: 'pointer' }} onClick={() => handleSort('Title')}>
+              <h4>Title</h4>
+            </th>
+            <th style={{ width: '25%', textAlign: 'center', cursor: 'pointer' }} onClick={() => handleSort('imdbRating')}>
+              <h4>Rating</h4>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((ep, i) => (
+            <tr key={i}>
+              <td>{ep.Title}</td>
+              <td style={{ textAlign: 'center' }}>{ep.imdbRating}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
 }
 
 function Episodes() {
@@ -36,12 +94,7 @@ function Episodes() {
   return (
     <div>
       <h3>Season {seasonId}</h3>
-      <Table className="table" data={episodes} sortable filterable={['Title']} style={{ width: '100%', marginLeft: '10px' }}>
-        <Thead>
-          <Th column="Title" style={{ width: '75%' }}><h4>Title</h4></Th>
-          <Th column="imdbRating" style={{ width: '25%', textAlign: 'center' }}><h4>Rating</h4></Th>
-        </Thead>
-      </Table>
+      <EpisodeTable episodes={episodes} />
     </div>
   );
 }
