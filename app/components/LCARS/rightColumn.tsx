@@ -1,5 +1,4 @@
-import React from 'react';
-
+﻿
 export default () => (
   <div className="lcars-column u-1-8">
     <ul className="lcars-menu right" >

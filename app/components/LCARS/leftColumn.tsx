@@ -1,5 +1,4 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+﻿import { Link } from 'react-router-dom';
 
 export default () => (
   <div className="lcars-column u-1-8" style={{ width: 50 }}>
