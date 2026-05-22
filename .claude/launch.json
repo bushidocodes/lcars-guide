@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "Dev Server",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["dev-server.js"],
+      "port": 8080
+    },
+    {
+      "name": "Test Server",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "test"],
+      "port": 7777
+    }
+  ]
+}

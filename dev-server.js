@@ -3,14 +3,14 @@ const webpack = require('webpack');
 const config = require('./webpack.config.js');
 const path = require('path');
 
-// const compiler = webpack(config);
 const compiler = webpack(config);
-const server = new WebpackDevServer(compiler, {
+const server = new WebpackDevServer({
   hot: true,
-  filename: config.output.filename,
-  publicPath: config.output.publicPath,
-  stats: {
-    colors: true
-  }
-});
-server.listen(8080, 'localhost', () => { });
+  port: 8080,
+  static: {
+    directory: path.join(__dirname, 'public'),
+    publicPath: '/public',
+  },
+}, compiler);
+
+server.start().catch(err => console.error(err));
