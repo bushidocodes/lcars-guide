@@ -1,5 +1,4 @@
-import React from 'react';
-
+﻿
 export default () => (
   <div className="lcars-row spaced">
     <div className="lcars-column u-1-8 lcars-elbow left bottom lcars-blue-bg" style={{ width: 60 }} />

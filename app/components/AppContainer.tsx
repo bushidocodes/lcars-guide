@@ -1,4 +1,3 @@
-import React from 'react';
 import { Outlet } from 'react-router-dom';
 import TopRow from './LCARS/topRow';
 import BottomRow from './LCARS/bottomRow';

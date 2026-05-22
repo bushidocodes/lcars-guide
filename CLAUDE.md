@@ -17,9 +17,9 @@ npm run test        # run Vitest test suite (terminal, not browser)
 npm run typecheck   # run tsc --noEmit type check
 ```
 
-Lint is via ESLint (airbnb config). Run with:
+Lint via ESLint 9 (flat config). Run with:
 ```bash
-npx eslint app/
+npm run lint        # eslint app/
 ```
 
 ## Architecture
@@ -50,4 +50,4 @@ npx eslint app/
 
 ## ESLint Config
 
-Airbnb ruleset with Windows line endings (`\r\n`) enforced. `react/prop-types` and `comma-dangle` rules are disabled.
+ESLint 9 flat config (`eslint.config.js`). Uses `typescript-eslint` recommended + `eslint-plugin-react` + `eslint-plugin-react-hooks`. `react/prop-types` and `react/display-name` are disabled; hooks rules are set to error/warn.
