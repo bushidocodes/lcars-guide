@@ -68,7 +68,7 @@ function EpisodeTable({ episodes }: { episodes: Episode[] }) {
         placeholder="Filter by title..."
         style={{ marginBottom: '8px' }}
       />
-      <table style={{ width: '100%' }}>
+      <table style={{ width: '100%', tableLayout: 'fixed' }}>
         <thead>
           <tr>
             <th style={{ width: '8%', textAlign: 'center', cursor: 'pointer', whiteSpace: 'nowrap' }} onClick={() => handleSort('Episode')}>
