@@ -1,34 +1,23 @@
 import React from 'react';
-import { Router, Route, IndexRedirect, hashHistory } from 'react-router';
+import { HashRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import AppContainer from './components/AppContainer';
 import Episodes from './components/Episodes';
 import store from './store';
 
-// Require LCARS CSS as CommonJS module
 require('./style/lcars.css');
-
-// Routes implemented as PlainRoutes due to react-router bug with HMR
-// See https://github.com/reactjs/react-router-redux/issues/179
-const routes = {
-  path: '/',
-  component: AppContainer,
-  childRoutes: [
-    { path: '/seasons/:seasonId', component: Episodes }
-  ],
-  indexRoute: { onEnter: (nextState, replace) => replace('seasons/4') }
-};
 
 render(
   <Provider store={store}>
-    <Router history={hashHistory} routes={routes} />
+    <HashRouter>
+      <AppContainer>
+        <Switch>
+          <Route exact path="/" render={() => <Redirect to="/seasons/4" />} />
+          <Route path="/seasons/:seasonId" component={Episodes} />
+        </Switch>
+      </AppContainer>
+    </HashRouter>
   </Provider>,
   document.getElementById('main')
 );
-
-// Use WebPack HotModuleReloading if available
-// Commented out pending bug between React-Router and HMR
-// if (module.hot) {
-  // module.hot.accept();
-// }
