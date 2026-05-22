@@ -24,25 +24,16 @@ npm run lint        # eslint app/
 
 ## Architecture
 
-**Entry point**: `index.html` at project root → `app/main.jsx` bootstraps the React app — wires up Redux `<Provider>`, React Router `<HashRouter>`, and mounts to `#main` via `createRoot`. The default route redirects to `/seasons/4`.
+**Entry point**: `index.html` at project root → `app/main.tsx` bootstraps the React app — wires up TanStack Query `<QueryClientProvider>`, React Router `<RouterProvider>`, and mounts to `#main` via `createRoot`. The default route redirects to `/seasons/4`.
 
-**Routing**: React Router v7 using `createHashRouter` (data-router API). Route config in `app/main.jsx`:
+**Routing**: React Router v7 using `createHashRouter` (data-router API). Route config in `app/main.tsx`:
 - `AppContainer` is the layout route; it renders `<Outlet />` for child content
 - `/` index route → `loader` redirects to `/seasons/4`
 - `/seasons/:seasonId` → `<Episodes>` component
 
-**Redux store** (`app/store.js`): configured with `redux-thunk` (async actions) and `redux-logger`. State shape:
-```
-{
-  imdbHasErrored: bool,
-  imdbIsLoading: bool,
-  imdb: {}  // season data in OMDb-compatible shape
-}
-```
+**Data flow**: `<Episodes>` reads `seasonId` from `useParams` and calls `useQuery` (TanStack Query v5) with key `['episodes', seasonId]`. The query function fetches all TNG episodes from TVMaze and filters to the requested season. Results are cached per season; revisiting a season is instant.
 
-**Data flow**: `<Episodes>` uses `useParams`, `useSelector`, `useDispatch` hooks. On mount (and when `seasonId` changes), it dispatches `fetchImdbData(seasonId)` (from `app/actions/imdb.js`), which fetches all TNG episodes from TVMaze, filters to the requested season, transforms the fields into the Redux state shape, and dispatches `RECEIVE_IMDB_DATA`.
-
-**Component structure**: `<AppContainer>` provides the LCARS chrome (top row, bottom row, left column decorative panels from `app/components/LCARS/`). Page content renders via `<Outlet />` inside the center column. `<Episodes>` contains an inline `<EpisodeTable>` component that handles title filtering and column sorting with React state.
+**Component structure**: `<AppContainer>` provides the LCARS chrome (top row, bottom row, left column season navigation from `app/components/LCARS/`). Page content renders via `<Outlet />` inside the center column. `<Episodes>` contains an inline `<EpisodeTable>` component that handles title filtering and column sorting with React state.
 
 **Build**: Vite 6 + `@vitejs/plugin-react-swc` (SWC for JSX/TSX transform). CSS is imported directly in `app/main.tsx`. TypeScript is checked separately with `npm run typecheck` (`tsc --noEmit`); SWC strips types at build time without checking.
 
