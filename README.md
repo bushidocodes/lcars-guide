@@ -1,40 +1,26 @@
 # LCARS Guide
 
-LCARS Guide is the ultimate platform for fans of Star Trek TNG to engage with the content they love.
-Episode data is retrieved from the [TVMaze API](https://www.tvmaze.com/api) (no API key required).
+A Star Trek TNG episode browser with a Star Trek LCARS-styled UI. Episode data is fetched from the [TVMaze API](https://www.tvmaze.com/api) (no API key required).
 
-## Installation
+**Live site:** https://bushidocodes.github.io/lcars-guide/
 
-To install LCARS Guide on your computer, you will need [Node.js with NPM](https://nodejs.org/en/download/). This project works best with Node 16 or later.
+## Development
 
-Once you have Node.js with NPM, clone the repo to a local directory and install the app's dependencies
+Requires [Node.js](https://nodejs.org/) 20 or later.
 
-```
-git clone https://github.com/spmcbride1201/lcars-guide.git
+```bash
+git clone https://github.com/bushidocodes/lcars-guide.git
 cd lcars-guide
 npm install
+npm run dev       # dev server with HMR at http://localhost:5173
+npm run test      # run Vitest test suite
+npm run build     # production build into dist/
 ```
 
-To start the app in dev mode (hot-module reloading):
-```
-npm run dev
-```
-... and then open http://localhost:8080/public in a browser
+## Stack
 
-To start the app in test mode (hot-module reloading):
-```
-npm run test
-```
-... and then open http://localhost:7777/tests/ in a browser
-
-To build for production (inject CSS into bundle, uglify, perform dependency tree shaking):
-```
-npm run build
-```
-... and then locally open ./public/index.html in a browser
-
-## Built with love using:
-* NPM to `npm install` all the things and run scripts
-* Babel + Webpack for build pipeline and hotreloading
-* Mocha + Chai + Enzyme + Sinon for testing
-* React + React-Router + Redux for Application UI logic and state
+- Vite + React + TypeScript
+- React Router v7 (hash-based routing)
+- TanStack Query v5 for data fetching and caching
+- Vitest + React Testing Library
+- GitHub Actions for CI and deployment to GitHub Pages
