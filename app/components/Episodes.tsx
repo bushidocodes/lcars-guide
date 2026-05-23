@@ -68,17 +68,17 @@ function EpisodeTable({ episodes }: { episodes: Episode[] }) {
         placeholder="Filter by title..."
         style={{ marginBottom: '8px' }}
       />
-      <table style={{ width: '100%', tableLayout: 'fixed' }}>
+      <table>
         <thead>
           <tr>
-            <th style={{ width: '8%', textAlign: 'center', cursor: 'pointer', whiteSpace: 'nowrap' }} onClick={() => handleSort('Episode')}>
-              <h4># {sortKey === 'Episode' ? (sortAsc ? '▲' : '▼') : ''}</h4>
+            <th style={{ cursor: 'pointer', whiteSpace: 'nowrap', textAlign: 'center' }} onClick={() => handleSort('Episode')}>
+              <h4>#</h4>
             </th>
-            <th style={{ width: '67%', cursor: 'pointer', whiteSpace: 'nowrap' }} onClick={() => handleSort('Title')}>
-              <h4>Title {sortKey === 'Title' ? (sortAsc ? '▲' : '▼') : ''}</h4>
+            <th style={{ cursor: 'pointer', padding: '0 8px' }} onClick={() => handleSort('Title')}>
+              <h4>Title</h4>
             </th>
-            <th style={{ width: '25%', textAlign: 'center', cursor: 'pointer', whiteSpace: 'nowrap' }} onClick={() => handleSort('imdbRating')}>
-              <h4>Rating {sortKey === 'imdbRating' ? (sortAsc ? '▲' : '▼') : ''}</h4>
+            <th style={{ cursor: 'pointer', whiteSpace: 'nowrap', textAlign: 'center' }} onClick={() => handleSort('imdbRating')}>
+              <h4>Rating</h4>
             </th>
           </tr>
         </thead>
@@ -87,9 +87,9 @@ function EpisodeTable({ episodes }: { episodes: Episode[] }) {
             ? <tr><td colSpan={3} style={{ textAlign: 'center', color: '#fc8' }}>NO MATCHING EPISODES</td></tr>
             : rows.map((ep, i) => (
               <tr key={i}>
-                <td style={{ textAlign: 'center' }}>{ep.Episode}</td>
-                <td>{ep.Title}</td>
-                <td style={{ textAlign: 'center' }}>{ep.imdbRating}</td>
+                <td style={{ textAlign: 'center', whiteSpace: 'nowrap' }}>{ep.Episode}</td>
+                <td style={{ padding: '0 8px' }}>{ep.Title}</td>
+                <td style={{ textAlign: 'center', whiteSpace: 'nowrap' }}>{ep.imdbRating}</td>
               </tr>
             ))
           }
