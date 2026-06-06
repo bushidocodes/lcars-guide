@@ -53,7 +53,12 @@ function EpisodeTable({ episodes }: { episodes: Episode[] }) {
     if (sortKey !== null) {
       const key = sortKey;
       result = [...result].sort((a, b) => {
-        const cmp = String(a[key]).localeCompare(String(b[key]), undefined, { numeric: true });
+        const aVal = String(a[key]);
+        const bVal = String(b[key]);
+        if (aVal === 'N/A' && bVal === 'N/A') return 0;
+        if (aVal === 'N/A') return 1;
+        if (bVal === 'N/A') return -1;
+        const cmp = aVal.localeCompare(bVal, undefined, { numeric: true });
         return sortAsc ? cmp : -cmp;
       });
     }

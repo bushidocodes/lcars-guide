@@ -8,6 +8,7 @@ const MOCK_EPISODES = [
   { season: 4, number: 1, airdate: '1990-09-24', name: 'The Best of Both Worlds, Part II', rating: { average: 9.1 } },
   { season: 4, number: 2, airdate: '1990-10-01', name: 'Family', rating: { average: 8.5 } },
   { season: 4, number: 3, airdate: '1990-10-08', name: 'Brothers', rating: { average: 8.2 } },
+  { season: 4, number: 4, airdate: '1990-10-15', name: 'Suddenly Human', rating: { average: null } },
   { season: 5, number: 1, airdate: '1991-09-23', name: 'Redemption II', rating: { average: 8.0 } },
 ];
 
@@ -99,7 +100,26 @@ describe('<Episodes />', () => {
     const rows = screen.getAllByRole('row').slice(1);
     expect(rows[0]).toHaveTextContent('Brothers');
     expect(rows[1]).toHaveTextContent('Family');
-    expect(rows[2]).toHaveTextContent('The Best of Both Worlds, Part II');
+    expect(rows[2]).toHaveTextContent('Suddenly Human');
+    expect(rows[3]).toHaveTextContent('The Best of Both Worlds, Part II');
+  });
+
+  it('sorts N/A ratings to the bottom in both ascending and descending order', async () => {
+    renderEpisodes('4');
+    await waitFor(() => expect(screen.getByText('Brothers')).toBeInTheDocument());
+
+    const ratingHeader = screen.getByText('Rating').closest('th')!;
+
+    // ascending: lowest rated first, N/A last
+    fireEvent.click(ratingHeader);
+    let rows = screen.getAllByRole('row').slice(1);
+    expect(rows[rows.length - 1]).toHaveTextContent('Suddenly Human');
+
+    // descending: highest rated first, N/A still last
+    fireEvent.click(ratingHeader);
+    rows = screen.getAllByRole('row').slice(1);
+    expect(rows[0]).toHaveTextContent('The Best of Both Worlds, Part II');
+    expect(rows[rows.length - 1]).toHaveTextContent('Suddenly Human');
   });
 
   it('shows RED ALERT when the API call fails', async () => {
