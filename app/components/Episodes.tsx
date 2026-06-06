@@ -12,10 +12,10 @@ interface TVMazeEpisode {
 }
 
 interface Episode {
-  Episode: string;
-  Released: string;
-  Title: string;
-  imdbRating: string;
+  number: string;
+  airdate: string;
+  title: string;
+  rating: string;
 }
 
 async function fetchSeasonEpisodes(seasonId: string): Promise<Episode[]> {
@@ -24,16 +24,16 @@ async function fetchSeasonEpisodes(seasonId: string): Promise<Episode[]> {
   return data
     .filter(ep => ep.season === season)
     .map(ep => ({
-      Episode: String(ep.number),
-      Released: ep.airdate,
-      Title: ep.name,
-      imdbRating: ep.rating.average !== null ? String(ep.rating.average) : 'N/A',
+      number: String(ep.number),
+      airdate: ep.airdate,
+      title: ep.name,
+      rating: ep.rating.average !== null ? String(ep.rating.average) : 'N/A',
     }));
 }
 
 function EpisodeTable({ episodes }: { episodes: Episode[] }) {
   const [filter, setFilter] = useState('');
-  const [sortKey, setSortKey] = useState<keyof Episode | null>('Episode');
+  const [sortKey, setSortKey] = useState<keyof Episode | null>('number');
   const [sortAsc, setSortAsc] = useState(true);
 
   function handleSort(key: keyof Episode) {
@@ -47,7 +47,7 @@ function EpisodeTable({ episodes }: { episodes: Episode[] }) {
 
   const rows = useMemo(() => {
     let result = filter
-      ? episodes.filter(ep => ep.Title.toLowerCase().includes(filter.toLowerCase()))
+      ? episodes.filter(ep => ep.title.toLowerCase().includes(filter.toLowerCase()))
       : episodes;
     if (sortKey !== null) {
       const key = sortKey;
@@ -71,13 +71,13 @@ function EpisodeTable({ episodes }: { episodes: Episode[] }) {
       <table>
         <thead>
           <tr>
-            <th style={{ cursor: 'pointer', whiteSpace: 'nowrap', textAlign: 'center' }} onClick={() => handleSort('Episode')}>
+            <th style={{ cursor: 'pointer', whiteSpace: 'nowrap', textAlign: 'center' }} onClick={() => handleSort('number')}>
               <h4>#</h4>
             </th>
-            <th style={{ cursor: 'pointer', padding: '0 8px' }} onClick={() => handleSort('Title')}>
+            <th style={{ cursor: 'pointer', padding: '0 8px' }} onClick={() => handleSort('title')}>
               <h4>Title</h4>
             </th>
-            <th style={{ cursor: 'pointer', whiteSpace: 'nowrap', textAlign: 'center' }} onClick={() => handleSort('imdbRating')}>
+            <th style={{ cursor: 'pointer', whiteSpace: 'nowrap', textAlign: 'center' }} onClick={() => handleSort('rating')}>
               <h4>Rating</h4>
             </th>
           </tr>
@@ -87,9 +87,9 @@ function EpisodeTable({ episodes }: { episodes: Episode[] }) {
             ? <tr><td colSpan={3} style={{ textAlign: 'center', color: '#fc8' }}>NO MATCHING EPISODES</td></tr>
             : rows.map((ep, i) => (
               <tr key={i}>
-                <td style={{ textAlign: 'center', whiteSpace: 'nowrap' }}>{ep.Episode}</td>
-                <td style={{ padding: '0 8px' }}>{ep.Title}</td>
-                <td style={{ textAlign: 'center', whiteSpace: 'nowrap' }}>{ep.imdbRating}</td>
+                <td style={{ textAlign: 'center', whiteSpace: 'nowrap' }}>{ep.number}</td>
+                <td style={{ padding: '0 8px' }}>{ep.title}</td>
+                <td style={{ textAlign: 'center', whiteSpace: 'nowrap' }}>{ep.rating}</td>
               </tr>
             ))
           }
