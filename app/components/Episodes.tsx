@@ -63,6 +63,7 @@ function EpisodeTable({ episodes }: { episodes: Episode[] }) {
     <div style={{ paddingLeft: '10px' }}>
       <input
         type="text"
+        aria-label="Filter by title"
         value={filter}
         onChange={e => setFilter(e.target.value)}
         placeholder="Filter by title..."
