@@ -92,8 +92,8 @@ function EpisodeTable({ episodes }: { episodes: Episode[] }) {
         <tbody>
           {rows.length === 0
             ? <tr><td colSpan={3} style={{ textAlign: 'center', color: '#fc8' }}>NO MATCHING EPISODES</td></tr>
-            : rows.map((ep, i) => (
-              <tr key={i}>
+            : rows.map((ep) => (
+              <tr key={ep.number}>
                 <td style={{ textAlign: 'center', whiteSpace: 'nowrap' }}>{ep.number}</td>
                 <td style={{ padding: '0 8px' }}>{ep.title}</td>
                 <td style={{ textAlign: 'center', whiteSpace: 'nowrap' }}>{ep.rating}</td>
