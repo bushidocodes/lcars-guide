@@ -45,9 +45,12 @@
   },
   "dependencies": {
     "@tanstack/react-query": "^5.0.0",
-    "axios": "^1.0.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router-dom": "^7.0.0"
+  },
+  "allowScripts": {
+    "@swc/core@1.15.33": true,
+    "esbuild@0.25.12": true
   }
 }

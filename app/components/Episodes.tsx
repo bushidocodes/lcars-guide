@@ -1,7 +1,6 @@
 import { useState, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
 
 interface TVMazeEpisode {
   season: number;
@@ -19,7 +18,9 @@ interface Episode {
 }
 
 async function fetchSeasonEpisodes(seasonId: string): Promise<Episode[]> {
-  const { data } = await axios.get<TVMazeEpisode[]>('https://api.tvmaze.com/shows/491/episodes');
+  const res = await fetch('https://api.tvmaze.com/shows/491/episodes');
+  if (!res.ok) throw new Error(`TVMaze request failed: ${res.status}`);
+  const data: TVMazeEpisode[] = await res.json();
   const season = parseInt(seasonId, 10);
   return data
     .filter(ep => ep.season === season)

@@ -1,5 +1,4 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import axios from 'axios';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { MemoryRouter, Routes, Route } from 'react-router-dom';
 import Episodes from '../app/components/Episodes';
@@ -11,10 +10,6 @@ const MOCK_EPISODES = [
   { season: 4, number: 3, airdate: '1990-10-08', name: 'Brothers', rating: { average: 8.2 } },
   { season: 5, number: 1, airdate: '1991-09-23', name: 'Redemption II', rating: { average: 8.0 } },
 ];
-
-vi.mock('axios', () => ({
-  default: { get: vi.fn() },
-}));
 
 function renderEpisodes(seasonId = '4') {
   const queryClient = new QueryClient({
@@ -32,7 +27,14 @@ function renderEpisodes(seasonId = '4') {
 }
 
 beforeEach(() => {
-  vi.mocked(axios.get).mockResolvedValue({ data: MOCK_EPISODES });
+  vi.stubGlobal('fetch', vi.fn().mockResolvedValue({
+    ok: true,
+    json: async () => MOCK_EPISODES,
+  } as Response));
+});
+
+afterEach(() => {
+  vi.unstubAllGlobals();
 });
 
 describe('<Episodes />', () => {
@@ -101,7 +103,7 @@ describe('<Episodes />', () => {
   });
 
   it('shows RED ALERT when the API call fails', async () => {
-    vi.mocked(axios.get).mockRejectedValue(new Error('Network Error'));
+    vi.stubGlobal('fetch', vi.fn().mockRejectedValue(new Error('Network Error')));
     renderEpisodes('4');
     await waitFor(() => expect(screen.getByText('RED ALERT')).toBeInTheDocument());
     expect(screen.getByText('ERROR DETECTED')).toBeInTheDocument();
