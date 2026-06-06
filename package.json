@@ -15,15 +15,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/spmcbride1201/lcars-guide.git"
+    "url": "git+https://github.com/bushidocodes/lcars-guide.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/spmcbride1201/lcars-guide/issues"
+    "url": "https://github.com/bushidocodes/lcars-guide/issues"
   },
-  "homepage": "https://github.com/spmcbride1201/lcars-guide#readme",
+  "homepage": "https://github.com/bushidocodes/lcars-guide#readme",
   "devDependencies": {
     "@eslint/js": "^9.0.0",
     "@testing-library/dom": "^10.4.1",
@@ -49,5 +49,9 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router-dom": "^7.0.0"
+  },
+  "allowScripts": {
+    "@swc/core@1.15.33": true,
+    "esbuild@0.25.12": true
   }
 }
