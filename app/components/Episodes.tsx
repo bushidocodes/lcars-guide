@@ -79,13 +79,13 @@ function EpisodeTable({ episodes }: { episodes: Episode[] }) {
         <thead>
           <tr>
             <th style={{ cursor: 'pointer', whiteSpace: 'nowrap', textAlign: 'center' }} onClick={() => handleSort('number')}>
-              <h4>#</h4>
+              <h4># {sortKey === 'number' ? (sortAsc ? '▲' : '▼') : ''}</h4>
             </th>
             <th style={{ cursor: 'pointer', padding: '0 8px' }} onClick={() => handleSort('title')}>
-              <h4>Title</h4>
+              <h4>Title {sortKey === 'title' ? (sortAsc ? '▲' : '▼') : ''}</h4>
             </th>
             <th style={{ cursor: 'pointer', whiteSpace: 'nowrap', textAlign: 'center' }} onClick={() => handleSort('rating')}>
-              <h4>Rating</h4>
+              <h4>Rating {sortKey === 'rating' ? (sortAsc ? '▲' : '▼') : ''}</h4>
             </th>
           </tr>
         </thead>
