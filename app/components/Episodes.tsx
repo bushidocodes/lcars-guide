@@ -17,19 +17,19 @@ interface Episode {
   rating: string;
 }
 
-async function fetchSeasonEpisodes(seasonId: string): Promise<Episode[]> {
+async function fetchAllEpisodes(): Promise<TVMazeEpisode[]> {
   const res = await fetch('https://api.tvmaze.com/shows/491/episodes');
   if (!res.ok) throw new Error(`TVMaze request failed: ${res.status}`);
-  const data: TVMazeEpisode[] = await res.json();
-  const season = parseInt(seasonId, 10);
-  return data
-    .filter(ep => ep.season === season)
-    .map(ep => ({
-      number: String(ep.number),
-      airdate: ep.airdate,
-      title: ep.name,
-      rating: ep.rating.average !== null ? String(ep.rating.average) : 'N/A',
-    }));
+  return res.json();
+}
+
+function toEpisode(ep: TVMazeEpisode): Episode {
+  return {
+    number: String(ep.number),
+    airdate: ep.airdate,
+    title: ep.name,
+    rating: ep.rating.average !== null ? String(ep.rating.average) : 'N/A',
+  };
 }
 
 function EpisodeTable({ episodes }: { episodes: Episode[] }) {
@@ -108,10 +108,17 @@ function EpisodeTable({ episodes }: { episodes: Episode[] }) {
 
 function Episodes() {
   const { seasonId } = useParams<{ seasonId: string }>();
-  const { data: episodes = [], isError, isLoading } = useQuery({
-    queryKey: ['episodes', seasonId],
-    queryFn: () => fetchSeasonEpisodes(seasonId!),
+  const season = parseInt(seasonId!, 10);
+
+  const { data: allEpisodes, isError, isLoading } = useQuery({
+    queryKey: ['episodes'],
+    queryFn: fetchAllEpisodes,
   });
+
+  const episodes = useMemo(
+    () => (allEpisodes ?? []).filter(ep => ep.season === season).map(toEpisode),
+    [allEpisodes, season],
+  );
 
   if (isError) {
     return (
