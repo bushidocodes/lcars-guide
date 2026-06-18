@@ -49,7 +49,5 @@
     "react-dom": "^19.0.0",
     "react-router-dom": "^7.0.0"
   },
-  "allowScripts": {
-    "@swc/core@1.15.33": true
-  }
+  "packageManager": "pnpm@11.5.0"
 }
