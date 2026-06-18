@@ -20,12 +20,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
+      - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v6
         with:
           node-version: 24
-          cache: npm
-      - run: npm ci
-      - run: npm run build -- --base=/lcars-guide/
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run build -- --base=/lcars-guide/
       - uses: actions/upload-pages-artifact@v5
         with:
           path: dist/
