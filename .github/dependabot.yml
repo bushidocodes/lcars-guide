@@ -9,4 +9,10 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+    # pnpm 11 enforces a default minimumReleaseAge of 24h and rejects lockfile
+    # entries for packages published more recently (ERR_PNPM_MINIMUM_RELEASE_AGE_
+    # VIOLATION). Hold new versions until they clear that window, with margin for
+    # CI queueing and re-runs, so `pnpm install --frozen-lockfile` doesn't fail.
+    cooldown:
+      default-days: 3
 ---
