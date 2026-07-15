@@ -1,15 +1,51 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { MemoryRouter, Routes, Route } from 'react-router-dom';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import Episodes from '../app/components/Episodes';
 
 const MOCK_EPISODES = [
-  { season: 3, number: 1, airdate: '1989-09-25', name: 'Evolution', rating: { average: 7.4 } },
-  { season: 4, number: 1, airdate: '1990-09-24', name: 'The Best of Both Worlds, Part II', rating: { average: 9.1 } },
-  { season: 4, number: 2, airdate: '1990-10-01', name: 'Family', rating: { average: 8.5 } },
-  { season: 4, number: 3, airdate: '1990-10-08', name: 'Brothers', rating: { average: 8.2 } },
-  { season: 4, number: 4, airdate: '1990-10-15', name: 'Suddenly Human', rating: { average: null } },
-  { season: 5, number: 1, airdate: '1991-09-23', name: 'Redemption II', rating: { average: 8.0 } },
+  {
+    season: 3,
+    number: 1,
+    airdate: '1989-09-25',
+    name: 'Evolution',
+    rating: { average: 7.4 },
+  },
+  {
+    season: 4,
+    number: 1,
+    airdate: '1990-09-24',
+    name: 'The Best of Both Worlds, Part II',
+    rating: { average: 9.1 },
+  },
+  {
+    season: 4,
+    number: 2,
+    airdate: '1990-10-01',
+    name: 'Family',
+    rating: { average: 8.5 },
+  },
+  {
+    season: 4,
+    number: 3,
+    airdate: '1990-10-08',
+    name: 'Brothers',
+    rating: { average: 8.2 },
+  },
+  {
+    season: 4,
+    number: 4,
+    airdate: '1990-10-15',
+    name: 'Suddenly Human',
+    rating: { average: null },
+  },
+  {
+    season: 5,
+    number: 1,
+    airdate: '1991-09-23',
+    name: 'Redemption II',
+    rating: { average: 8.0 },
+  },
 ];
 
 function renderEpisodes(seasonId = '4') {
@@ -28,10 +64,13 @@ function renderEpisodes(seasonId = '4') {
 }
 
 beforeEach(() => {
-  vi.stubGlobal('fetch', vi.fn().mockResolvedValue({
-    ok: true,
-    json: async () => MOCK_EPISODES,
-  } as Response));
+  vi.stubGlobal(
+    'fetch',
+    vi.fn().mockResolvedValue({
+      ok: true,
+      json: async () => MOCK_EPISODES,
+    } as Response)
+  );
 });
 
 afterEach(() => {
@@ -46,7 +85,11 @@ describe('<Episodes />', () => {
 
   it('shows only episodes for the requested season', async () => {
     renderEpisodes('4');
-    await waitFor(() => expect(screen.getByText('The Best of Both Worlds, Part II')).toBeInTheDocument());
+    await waitFor(() =>
+      expect(
+        screen.getByText('The Best of Both Worlds, Part II')
+      ).toBeInTheDocument()
+    );
     expect(screen.getByText('Family')).toBeInTheDocument();
     expect(screen.getByText('Brothers')).toBeInTheDocument();
     expect(screen.queryByText('Evolution')).not.toBeInTheDocument();
@@ -57,16 +100,22 @@ describe('<Episodes />', () => {
     renderEpisodes('4');
     await waitFor(() => expect(screen.getByText('Family')).toBeInTheDocument());
 
-    fireEvent.change(screen.getByRole('textbox'), { target: { value: 'family' } });
+    fireEvent.change(screen.getByRole('textbox'), {
+      target: { value: 'family' },
+    });
 
     expect(screen.getByText('Family')).toBeInTheDocument();
     expect(screen.queryByText('Brothers')).not.toBeInTheDocument();
-    expect(screen.queryByText('The Best of Both Worlds, Part II')).not.toBeInTheDocument();
+    expect(
+      screen.queryByText('The Best of Both Worlds, Part II')
+    ).not.toBeInTheDocument();
   });
 
   it('clears filter to show all season episodes again', async () => {
     renderEpisodes('4');
-    await waitFor(() => expect(screen.getByText('Brothers')).toBeInTheDocument());
+    await waitFor(() =>
+      expect(screen.getByText('Brothers')).toBeInTheDocument()
+    );
 
     const input = screen.getByRole('textbox');
     fireEvent.change(input, { target: { value: 'brothers' } });
@@ -79,7 +128,9 @@ describe('<Episodes />', () => {
 
   it('sorts by rating ascending then descending on header click', async () => {
     renderEpisodes('4');
-    await waitFor(() => expect(screen.getByText('Brothers')).toBeInTheDocument());
+    await waitFor(() =>
+      expect(screen.getByText('Brothers')).toBeInTheDocument()
+    );
 
     const ratingHeader = screen.getByText('Rating').closest('th')!;
 
@@ -106,7 +157,9 @@ describe('<Episodes />', () => {
 
   it('sorts N/A ratings to the bottom in both ascending and descending order', async () => {
     renderEpisodes('4');
-    await waitFor(() => expect(screen.getByText('Brothers')).toBeInTheDocument());
+    await waitFor(() =>
+      expect(screen.getByText('Brothers')).toBeInTheDocument()
+    );
 
     const ratingHeader = screen.getByText('Rating').closest('th')!;
 
@@ -123,9 +176,14 @@ describe('<Episodes />', () => {
   });
 
   it('shows RED ALERT when the API call fails', async () => {
-    vi.stubGlobal('fetch', vi.fn().mockRejectedValue(new Error('Network Error')));
+    vi.stubGlobal(
+      'fetch',
+      vi.fn().mockRejectedValue(new Error('Network Error'))
+    );
     renderEpisodes('4');
-    await waitFor(() => expect(screen.getByText('RED ALERT')).toBeInTheDocument());
+    await waitFor(() =>
+      expect(screen.getByText('RED ALERT')).toBeInTheDocument()
+    );
     expect(screen.getByText('ERROR DETECTED')).toBeInTheDocument();
   });
 });
