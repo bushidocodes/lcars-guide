@@ -17,9 +17,9 @@ npm run test        # run Vitest test suite (terminal, not browser)
 npm run typecheck   # run tsc --noEmit type check
 ```
 
-Lint via ESLint 9 (flat config). Run with:
+Lint via Biome. Run with:
 ```bash
-npm run lint        # eslint app/
+npm run lint        # biome check .
 ```
 
 ## Architecture
@@ -39,6 +39,6 @@ npm run lint        # eslint app/
 
 **Tests**: Vitest + React Testing Library. Test files live in `tests/`. Run with `npm run test` (outputs to terminal).
 
-## ESLint Config
+## Biome Config
 
-ESLint 9 flat config (`eslint.config.js`). Uses `typescript-eslint` recommended + `eslint-plugin-react` + `eslint-plugin-react-hooks`. `react/prop-types` and `react/display-name` are disabled; hooks rules are set to error/warn.
+Biome (`biome.json`) handles lint and format for `app/` and `tests/`. Recommended rules with a11y off; React hooks correctness is covered by Biome's correctness rules.

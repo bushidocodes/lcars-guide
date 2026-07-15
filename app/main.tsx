@@ -1,6 +1,6 @@
-﻿import { createHashRouter, RouterProvider, redirect } from 'react-router-dom';
+﻿import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { createRoot } from 'react-dom/client';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { createHashRouter, RouterProvider, redirect } from 'react-router-dom';
 import AppContainer from './components/AppContainer';
 import Episodes from './components/Episodes';
 import './style/lcars.css';
